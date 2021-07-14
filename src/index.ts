@@ -15,7 +15,7 @@ app.listen(PORT, () => console.log(`Server started on Port ${PORT}`));
 app.use(express.json());
 
 app.get("/test", (_req: Request, _res: Response) => {
-  _res.send("It Works!!");
+  _res.send("It Works!!!");
 });
 
 // connect to mongoose

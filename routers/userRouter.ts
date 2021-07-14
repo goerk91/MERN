@@ -4,12 +4,10 @@ import bcrypt from "bcrypt";
 
 export const router = express.Router();
 
-router.get("/", async (_req: Request, _res: Response) => {
+router.post("/", async (_req: Request, _res: Response) => {
   try {
     const { email, password, passwordVerify } = _req.body;
-    console.log(email);
-    console.log(password);
-    console.log(passwordVerify);
+
     if (!email || !password || !passwordVerify) {
       return _res
         .status(400)
