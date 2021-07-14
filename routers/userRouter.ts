@@ -31,9 +31,11 @@ router.post("/", async (_req: Request, _res: Response) => {
         .json({ errorMessage: "An Account with this email already exists!" });
     }
 
+    // hash password
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
+    //save a new user to DB
     const newUser = new User({
       email: email,
       passwordHash: passwordHash,
@@ -41,6 +43,8 @@ router.post("/", async (_req: Request, _res: Response) => {
 
     const savedUser = await newUser.save();
     console.log(savedUser);
+
+    // log the user in
     return _res.send("User saved");
   } catch (err) {
     console.error(err);
