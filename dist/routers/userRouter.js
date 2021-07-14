@@ -8,12 +8,9 @@ const express_1 = __importDefault(require("express"));
 const userModel_1 = require("../models/userModel");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 exports.router = express_1.default.Router();
-exports.router.get("/", async (_req, _res) => {
+exports.router.post("/", async (_req, _res) => {
     try {
         const { email, password, passwordVerify } = _req.body;
-        console.log(email);
-        console.log(password);
-        console.log(passwordVerify);
         if (!email || !password || !passwordVerify) {
             return _res
                 .status(400)

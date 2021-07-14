@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on Port ${PORT}`));
 app.use(express_1.default.json());
 app.get("/test", (_req, _res) => {
-    _res.send("It Works!!");
+    _res.send("It Works!!!");
 });
 mongoose_1.default.connect(env, {
     useNewUrlParser: true,
