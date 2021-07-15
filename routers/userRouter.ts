@@ -3,10 +3,10 @@ import { User } from "../models/userModel";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const router = express.Router();
+const userRouter = express.Router();
 
 // register
-router.post("/", async (_req: Request, _res: Response) => {
+userRouter.post("/", async (_req: Request, _res: Response) => {
   try {
     let env = process.env["JWT_SECRET"] || "";
     const { email, password, passwordVerify } = _req.body;
@@ -68,7 +68,7 @@ router.post("/", async (_req: Request, _res: Response) => {
 });
 
 // log in
-router.post("/login", async (_req: Request, _res: Response) => {
+userRouter.post("/login", async (_req: Request, _res: Response) => {
   try {
     const { email, password } = _req.body;
     let env = process.env["JWT_SECRET"] || "";
@@ -116,7 +116,7 @@ router.post("/login", async (_req: Request, _res: Response) => {
 });
 
 // logout
-router.get("/logout", (_req: Request, _res: Response) => {
+userRouter.get("/logout", (_req: Request, _res: Response) => {
   _res
     .cookie("token", "", {
       httpOnly: true,
@@ -124,3 +124,5 @@ router.get("/logout", (_req: Request, _res: Response) => {
     })
     .send("logout");
 });
+
+export default userRouter;
