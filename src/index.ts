@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { router } from "../routers/userRouter";
+import userRouter from "../routers/userRouter";
+import customerRouter from "../routers/customerRouter";
 
 dotenv.config();
 let env = process.env["MDB_CONNECT"] || "";
@@ -33,4 +34,5 @@ mongoose.connect(
 
 // set up routes
 
-app.use("/auth", router);
+app.use("/auth", userRouter);
+app.use("/customer", customerRouter);
