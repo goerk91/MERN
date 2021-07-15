@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "../routers/userRouter";
 import customerRouter from "../routers/customerRouter";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 let env = process.env["MDB_CONNECT"] || "";
@@ -13,7 +14,10 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on Port ${PORT}`));
 
+// any incomming request will be checked, if it has a json-Object in the body - it will parsed into _req.body
 app.use(express.json());
+// any incomming request will be checked, if it has cookies - it will parsed into _req.cookies
+app.use(cookieParser());
 
 app.get("/test", (_req: Request, _res: Response) => {
   _res.send("It Works!!!");
