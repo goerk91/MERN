@@ -5,6 +5,10 @@
     "lib": [
       "es2020"
     ],
+    "typeRoots": [
+      "@types",
+      "./node_modules/@types",
+    ],
     "skipLibCheck": true,
     "sourceMap": true,
     "outDir": "./dist",
