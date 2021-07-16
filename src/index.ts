@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRouter from "../routers/userRouter";
 import customerRouter from "../routers/customerRouter";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 dotenv.config();
 let env = process.env["MDB_CONNECT"] || "";
@@ -18,6 +19,13 @@ app.listen(PORT, () => console.log(`Server started on Port ${PORT}`));
 app.use(express.json());
 // any incomming request will be checked, if it has cookies - it will parsed into _req.cookies
 app.use(cookieParser());
+// allow acces for req/res to the server
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  })
+);
 
 app.get("/test", (_req: Request, _res: Response) => {
   _res.send("It Works!!!");
