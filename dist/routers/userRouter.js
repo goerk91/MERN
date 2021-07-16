@@ -3,13 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.router = void 0;
 const express_1 = __importDefault(require("express"));
 const userModel_1 = require("../models/userModel");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-exports.router = express_1.default.Router();
-exports.router.post("/", async (_req, _res) => {
+const userRouter = express_1.default.Router();
+userRouter.post("/", async (_req, _res) => {
     try {
         let env = process.env["JWT_SECRET"] || "";
         const { email, password, passwordVerify } = _req.body;
@@ -55,7 +54,7 @@ exports.router.post("/", async (_req, _res) => {
         return _res.status(500).send();
     }
 });
-exports.router.post("/login", async (_req, _res) => {
+userRouter.post("/login", async (_req, _res) => {
     try {
         const { email, password } = _req.body;
         let env = process.env["JWT_SECRET"] || "";
@@ -86,12 +85,13 @@ exports.router.post("/login", async (_req, _res) => {
         return _res.status(500).send("Wtf");
     }
 });
-exports.router.get("/logout", (_req, _res) => {
+userRouter.get("/logout", (_req, _res) => {
     _res
         .cookie("token", "", {
         httpOnly: true,
         expires: new Date(0),
     })
-        .send();
+        .send("logout");
 });
+exports.default = userRouter;
 //# sourceMappingURL=userRouter.js.map
