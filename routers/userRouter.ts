@@ -53,7 +53,7 @@ userRouter.post("/", async (_req: Request, _res: Response) => {
       },
       env
     );
-    // console.log(token);
+    console.log(token);
 
     // send the token in a HTTP-cookie
     return _res
@@ -123,6 +123,23 @@ userRouter.get("/logout", (_req: Request, _res: Response) => {
       expires: new Date(0),
     })
     .send("logout");
+});
+
+//logedIn check, if the user is LogedIn and shows customer in the frontend depending on the status
+userRouter.get("/loggedIn", (_req: Request, _res: Response) => {
+  try {
+    const token = _req.cookies.token;
+    const env = process.env["JWT_SECRET"] || "";
+
+    if (!token) return _res.json(false);
+
+    jwt.verify(token, env);
+
+    return _res.send(true);
+  } catch (err) {
+    console.error(err);
+    return _res.json(false);
+  }
 });
 
 export default userRouter;
