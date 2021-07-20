@@ -43,6 +43,7 @@ userRouter.post("/", async (_req, _res) => {
         const token = jsonwebtoken_1.default.sign({
             user: savedUser._id,
         }, env);
+        console.log(token);
         return _res
             .cookie("token", token, {
             httpOnly: true,
@@ -92,6 +93,20 @@ userRouter.get("/logout", (_req, _res) => {
         expires: new Date(0),
     })
         .send("logout");
+});
+userRouter.get("/loggedIn", (_req, _res) => {
+    try {
+        const token = _req.cookies.token;
+        const env = process.env["JWT_SECRET"] || "";
+        if (!token)
+            return _res.json(false);
+        jsonwebtoken_1.default.verify(token, env);
+        return _res.send(true);
+    }
+    catch (err) {
+        console.error(err);
+        return _res.json(false);
+    }
 });
 exports.default = userRouter;
 //# sourceMappingURL=userRouter.js.map

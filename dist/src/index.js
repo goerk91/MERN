@@ -9,6 +9,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const userRouter_1 = __importDefault(require("../routers/userRouter"));
 const customerRouter_1 = __importDefault(require("../routers/customerRouter"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 let env = process.env["MDB_CONNECT"] || "";
 const app = express_1.default();
@@ -16,6 +17,10 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on Port ${PORT}`));
 app.use(express_1.default.json());
 app.use(cookie_parser_1.default());
+app.use(cors_1.default({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+}));
 app.get("/test", (_req, _res) => {
     _res.send("It Works!!!");
 });
