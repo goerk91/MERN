@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const userRouter = express.Router();
-
+// Code auslagern
 // register
 userRouter.post("/", async (_req: Request, _res: Response) => {
   try {
@@ -22,7 +22,7 @@ userRouter.post("/", async (_req: Request, _res: Response) => {
       });
     }
     if (password !== passwordVerify) {
-      _res
+      return _res
         .status(400)
         .json({ errorMessage: "Please enter the same Password!" });
     }
