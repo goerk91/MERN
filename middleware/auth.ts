@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 function auth(_req: Request, _res: Response, _next: NextFunction) {
   try {
     const token = _req.cookies.token;
-    const env = process.env["JWT_SECRET"] || "";
+    const env = process.env["JWT_SECRET"] ?? "";
 
     if (!token)
       return _res.status(401).json({
